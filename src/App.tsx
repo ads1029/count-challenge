@@ -6,6 +6,10 @@ import dayjs from "dayjs";
 function App() {
   const [startTime, setStartTime] = useState<dayjs.Dayjs | number>(0);
   const [passedTime, setPassedTime] = useState(0);
+  const [hiddenStartTime, setHiddenStartTime] = useState<dayjs.Dayjs | number>(
+    0
+  );
+  const [hiddenPassedTime, setHiddenPassedTime] = useState(0);
   var interval: number | undefined;
 
   const commafy = (num: number) => {
@@ -22,9 +26,16 @@ function App() {
   const startCounting = () => {
     setStartTime(dayjs());
   };
+  const startHiddenCounting = () => {
+    setHiddenStartTime(dayjs());
+  };
 
   const stopCounting = () => {
     clearInterval(interval);
+  };
+
+  const stopHiddenCounting = () => {
+    setHiddenPassedTime(dayjs().diff(hiddenStartTime));
   };
 
   // const resetCounting = () => {
@@ -66,7 +77,9 @@ function App() {
       <div className="time-pass"></div>
 
       <div>
-        <h1>{commafy(passedTime)}</h1>
+        <h1>
+          {hiddenPassedTime ? commafy(hiddenPassedTime) : commafy(passedTime)}
+        </h1>
       </div>
 
       <div className="comments">{}</div>
@@ -74,6 +87,16 @@ function App() {
       <div>
         <button onClick={startCounting}>Start</button>
         <button onClick={stopCounting}>Stop!</button>
+        {/* <button onClick={resetCounting}>Reset</button> */}
+      </div>
+
+      <br />
+      <br />
+      <br />
+      <div>
+        <p>wanna try the blind version?</p>
+        <button onClick={startHiddenCounting}>Start</button>
+        <button onClick={stopHiddenCounting}>Stop!</button>
         {/* <button onClick={resetCounting}>Reset</button> */}
       </div>
     </div>
