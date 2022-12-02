@@ -10,6 +10,7 @@ function App() {
     0
   );
   const [hiddenPassedTime, setHiddenPassedTime] = useState(0);
+  const [hiddenLoading, setHiddenLoading] = useState(false);
   var interval: number | undefined;
 
   const commafy = (num: number) => {
@@ -29,6 +30,8 @@ function App() {
   };
   const startHiddenCounting = () => {
     setHiddenStartTime(dayjs());
+    setHiddenPassedTime(0);
+    setHiddenLoading(true);
   };
 
   const stopCounting = () => {
@@ -37,6 +40,7 @@ function App() {
 
   const stopHiddenCounting = () => {
     setHiddenPassedTime(dayjs().diff(hiddenStartTime));
+    setHiddenLoading(false);
   };
 
   // const resetCounting = () => {
@@ -78,9 +82,19 @@ function App() {
       <div className="time-pass"></div>
 
       <div>
-        <h1>
-          {hiddenPassedTime ? commafy(hiddenPassedTime) : commafy(passedTime)}
-        </h1>
+        {hiddenLoading ? (
+          <h1 className="animate-pulse font-extrabold">. . .</h1>
+        ) : (
+          <h1>
+            {hiddenPassedTime ? commafy(hiddenPassedTime) : commafy(passedTime)}
+          </h1>
+        )}
+
+        <div>
+          {/* <h1 className="animate-ping">
+            {hiddenPassedTime ? commafy(hiddenPassedTime) : commafy(passedTime)}
+          </h1> */}
+        </div>
       </div>
 
       <div className="comments">{}</div>
