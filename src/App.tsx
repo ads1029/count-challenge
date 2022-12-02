@@ -49,7 +49,11 @@ function App() {
   return (
     <div className="App">
       <h1>Time Count Challenge</h1>
-      <p>try to aim for 10 second as close as possible!</p>
+      <p>
+        try to aim for 10 second
+        <span style={{ color: "red", fontWeight: "bolder" }}>S</span> as close
+        as possible!
+      </p>
 
       <div className="time-pass"></div>
 
