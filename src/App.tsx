@@ -39,7 +39,9 @@ function App() {
   };
 
   const stopHiddenCounting = () => {
-    setHiddenPassedTime(dayjs().diff(hiddenStartTime));
+    if (hiddenStartTime) {
+      setHiddenPassedTime(dayjs().diff(hiddenStartTime));
+    }
     setHiddenLoading(false);
   };
 
