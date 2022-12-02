@@ -24,6 +24,7 @@ function App() {
   };
 
   const startCounting = () => {
+    setHiddenPassedTime(0);
     setStartTime(dayjs());
   };
   const startHiddenCounting = () => {
