@@ -51,8 +51,16 @@ function App() {
       <h1>Time Count Challenge</h1>
       <p>
         try to aim for 10 second
-        <span style={{ color: "red", fontWeight: "bolder" }}>S</span> as close
-        as possible!
+        <span
+          style={{
+            color: "red",
+            fontWeight: "bolder",
+            marginLeft: "-0.3rem",
+          }}
+        >
+          S
+        </span>{" "}
+        as close as possible!
       </p>
 
       <div className="time-pass"></div>
