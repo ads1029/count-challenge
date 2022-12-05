@@ -62,7 +62,10 @@ function App() {
   };
 
   useEffect(() => {
-    const keyDownHandler = (event) => {
+    const keyDownHandler = (event: {
+      key: string;
+      preventDefault: () => void;
+    }) => {
       console.log("User pressed: ", event.key);
       if (event.key === "Escape") {
         event.preventDefault();
