@@ -28,14 +28,16 @@ function App() {
     setHiddenPassedTime(0);
     setStartTime(dayjs());
   };
+
+  const stopCounting = () => {
+    clearInterval(interval);
+    console.log(passedTime);
+  };
+
   const startHiddenCounting = () => {
     setHiddenStartTime(dayjs());
     setHiddenPassedTime(0);
     setHiddenLoading(true);
-  };
-
-  const stopCounting = () => {
-    clearInterval(interval);
   };
 
   const stopHiddenCounting = () => {
@@ -45,10 +47,50 @@ function App() {
     setHiddenLoading(false);
   };
 
+  const checkPassedTime = () => {
+    console.log(passedTime);
+  };
+
   // const resetCounting = () => {
   //   setPassedTime(0);
   //   setStartTime(0);
   // };
+
+  const myFunction = () => {
+    // your logic here
+    console.log("pressed Esc ✅");
+  };
+
+  useEffect(() => {
+    const keyDownHandler = (event) => {
+      console.log("User pressed: ", event.key);
+      if (event.key === "Escape") {
+        event.preventDefault();
+
+        // 👇️ your logic here
+        myFunction();
+      }
+
+      if (event.key === "Enter") {
+        event.preventDefault();
+        startCounting();
+      }
+
+      if (event.key === " " && passedTime !== 0) {
+        event.preventDefault();
+        stopCounting();
+
+        console.log("should stop here");
+      }
+    };
+
+    document.addEventListener("keydown", keyDownHandler);
+
+    // 👇️ clean up event listener
+    return () => {
+      document.removeEventListener("keydown", keyDownHandler);
+    };
+  }, [passedTime]);
 
   useEffect(() => {
     if (startTime === 0) {
@@ -57,7 +99,7 @@ function App() {
       interval = setInterval(() => {
         let currentTime = dayjs();
         setPassedTime(currentTime.diff(startTime));
-        console.log(passedTime);
+        // console.log(passedTime);
       }, 10);
     }
 
@@ -102,8 +144,8 @@ function App() {
       <div className="comments">{}</div>
 
       <div>
-        <button onClick={startCounting}>Start</button>
-        <button onClick={stopCounting}>Stop!</button>
+        <button onClick={startCounting}>Start (Enter)</button>
+        <button onClick={stopCounting}>Stop! (Space)</button>
         {/* <button onClick={resetCounting}>Reset</button> */}
       </div>
 
